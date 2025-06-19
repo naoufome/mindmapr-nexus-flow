@@ -1,8 +1,10 @@
-
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { ThreeBackground } from "@/components/ThreeBackground";
+import { FloatingIcons } from "@/components/FloatingIcons";
+import { Hero3D } from "@/components/Hero3D";
 import { 
   Brain, 
   Zap, 
@@ -46,11 +48,13 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-subtle relative">
+      <ThreeBackground />
+      <FloatingIcons />
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-8 animate-slide-up">
             <div className="space-y-4">
@@ -66,34 +70,29 @@ const Index = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button asChild size="lg" className="bg-gradient-neon text-white hover:opacity-90 transition-opacity">
+              <Button asChild size="lg" className="bg-gradient-neon text-white hover:opacity-90 transition-all duration-300 hover:scale-105">
                 <Link to="/dashboard">
                   Start Creating <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="glass border-white/20">
+              <Button variant="outline" size="lg" className="glass border-white/20 hover:scale-105 transition-all duration-300">
                 <Play className="mr-2 h-4 w-4" />
                 Watch Demo
               </Button>
             </div>
           </div>
 
-          {/* Hero Visual */}
+          {/* Hero 3D Visual */}
           <div className="mt-16 relative">
-            <div className="glass rounded-2xl p-8 max-w-4xl mx-auto animate-float">
-              <div className="aspect-video bg-gradient-subtle rounded-xl flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <Brain className="h-16 w-16 text-neon-blue mx-auto animate-glow" />
-                  <p className="text-lg font-medium">Interactive Mind Map Preview</p>
-                </div>
-              </div>
+            <div className="glass rounded-2xl p-8 max-w-4xl mx-auto animate-float backdrop-blur-xl bg-white/5">
+              <Hero3D />
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold">
@@ -121,7 +120,7 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle/50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle/50 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -166,7 +165,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <Card className="glass border-white/10 p-12">
             <div className="space-y-6">

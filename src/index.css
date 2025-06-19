@@ -89,4 +89,99 @@
   .text-gradient {
     @apply bg-gradient-neon bg-clip-text text-transparent;
   }
+
+  /* Enhanced 3D animations */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-preserve {
+    transform-style: preserve-3d;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .animate-rotate-3d {
+    animation: rotate3d 20s linear infinite;
+  }
+
+  .animate-bounce-3d {
+    animation: bounce3d 2s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .animate-matrix {
+    animation: matrix 10s linear infinite;
+  }
+}
+
+@keyframes rotate3d {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  25% { transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg); }
+  50% { transform: rotateX(90deg) rotateY(90deg) rotateZ(0deg); }
+  75% { transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg); }
+  100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+}
+
+@keyframes bounce3d {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-20px) rotateX(180deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(255, 107, 157, 0.8);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes matrix {
+  0% { transform: translateY(-100vh) rotateZ(0deg); }
+  100% { transform: translateY(100vh) rotateZ(360deg); }
+}
+
+/* Particle effects */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(45deg, #00D4FF, #FF6B9D);
+  border-radius: 50%;
+  animation: float 15s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
 }
