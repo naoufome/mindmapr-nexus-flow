@@ -1,6 +1,6 @@
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Sphere, Float, OrbitControls } from '@react-three/drei';
+import { Text, Sphere, Float, OrbitControls, Line } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
@@ -51,18 +51,17 @@ const MindMapVisualization = () => {
           >
             {node.text}
           </Text>
-          {/* Connection lines */}
-          <line>
-            <bufferGeometry>
-              <bufferAttribute
-                attach="attributes-position"
-                array={new Float32Array([0, 0, 0, node.pos[0], node.pos[1], node.pos[2]])}
-                count={2}
-                itemSize={3}
-              />
-            </bufferGeometry>
-            <lineBasicMaterial color="#00D4FF" transparent opacity={0.5} />
-          </line>
+          {/* Connection lines using Line component from drei */}
+          <Line
+            points={[
+              [0, 0, 0],
+              [node.pos[0], node.pos[1], node.pos[2]]
+            ]}
+            color="#00D4FF"
+            transparent
+            opacity={0.5}
+            lineWidth={2}
+          />
         </Float>
       ))}
     </group>
