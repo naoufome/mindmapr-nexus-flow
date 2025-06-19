@@ -1,84 +1,56 @@
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Sphere, Float, OrbitControls, Line } from '@react-three/drei';
-import { useRef } from 'react';
-import * as THREE from 'three';
-
-const MindMapVisualization = () => {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      {/* Central node */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
-        <Sphere position={[0, 0, 0]} args={[0.8, 32, 32]}>
-          <meshPhongMaterial color="#00D4FF" transparent={true} opacity={0.8} />
-        </Sphere>
-        <Text
-          position={[0, 0, 0.9]}
-          fontSize={0.3}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          Ideas
-        </Text>
-      </Float>
-
-      {/* Connected nodes */}
-      {[
-        { pos: [-2, 1, 0], color: "#FF6B9D", text: "Create" },
-        { pos: [2, -1, 0], color: "#8B5CF6", text: "Organize" },
-        { pos: [0, 2, 0], color: "#10B981", text: "Connect" },
-        { pos: [-1, -2, 0], color: "#F59E0B", text: "Grow" },
-      ].map((node, index) => (
-        <Float key={index} speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
-          <Sphere position={node.pos as [number, number, number]} args={[0.5, 16, 16]}>
-            <meshPhongMaterial color={node.color} transparent={true} opacity={0.7} />
-          </Sphere>
-          <Text
-            position={[node.pos[0], node.pos[1], node.pos[2] + 0.6]}
-            fontSize={0.2}
-            color="white"
-            anchorX="center"
-            anchorY="middle"
-          >
-            {node.text}
-          </Text>
-          {/* Connection lines using Line component from drei */}
-          <Line
-            points={[
-              [0, 0, 0],
-              [node.pos[0], node.pos[1], node.pos[2]]
-            ]}
-            color="#00D4FF"
-            transparent={true}
-            opacity={0.5}
-            lineWidth={2}
-          />
-        </Float>
-      ))}
-    </group>
-  );
-};
-
 export const Hero3D = () => {
   return (
-    <div className="h-64 w-full">
-      <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-        <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -5]} intensity={0.5} color="#FF6B9D" />
-        
-        <MindMapVisualization />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate={true} autoRotateSpeed={0.5} />
-      </Canvas>
+    <div className="h-64 w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20">
+      {/* Central node */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="relative">
+          <div className="w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse shadow-lg shadow-cyan-400/50 flex items-center justify-center">
+            <span className="text-white font-semibold text-sm">Ideas</span>
+          </div>
+          
+          {/* Connection lines */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-32 h-0.5 bg-gradient-to-r from-cyan-400 to-pink-400 absolute -rotate-45 origin-center animate-pulse"></div>
+            <div className="w-32 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 absolute rotate-45 origin-center animate-pulse"></div>
+            <div className="w-32 h-0.5 bg-gradient-to-r from-cyan-400 to-green-400 absolute rotate-90 origin-center animate-pulse"></div>
+            <div className="w-32 h-0.5 bg-gradient-to-r from-cyan-400 to-yellow-400 absolute origin-center animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Connected nodes */}
+      <div className="absolute top-8 left-8 w-12 h-12 bg-gradient-to-r from-pink-400 to-red-500 rounded-full animate-bounce flex items-center justify-center shadow-lg">
+        <span className="text-white text-xs font-medium">Create</span>
+      </div>
+      
+      <div className="absolute bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full animate-bounce flex items-center justify-center shadow-lg" style={{ animationDelay: '0.5s' }}>
+        <span className="text-white text-xs font-medium">Organize</span>
+      </div>
+      
+      <div className="absolute top-8 right-8 w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-bounce flex items-center justify-center shadow-lg" style={{ animationDelay: '1s' }}>
+        <span className="text-white text-xs font-medium">Connect</span>
+      </div>
+      
+      <div className="absolute bottom-8 left-8 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce flex items-center justify-center shadow-lg" style={{ animationDelay: '1.5s' }}>
+        <span className="text-white text-xs font-medium">Grow</span>
+      </div>
+
+      {/* Floating particles */}
+      <div className="absolute inset-0">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/50 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };
