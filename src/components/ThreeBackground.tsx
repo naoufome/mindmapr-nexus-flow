@@ -19,7 +19,7 @@ const AnimatedSphere = ({ position, color, scale = 1 }: { position: [number, num
       <Sphere ref={meshRef} args={[1, 64, 64]} scale={scale} position={position}>
         <meshPhongMaterial
           color={color}
-          transparent
+          transparent={true}
           opacity={0.7}
           emissive={color}
           emissiveIntensity={0.1}
@@ -58,7 +58,7 @@ const Particles = () => {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.1} color="#00D4FF" transparent opacity={0.6} />
+      <pointsMaterial size={0.1} color="#00D4FF" transparent={true} opacity={0.6} />
     </points>
   );
 };

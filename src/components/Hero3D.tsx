@@ -18,7 +18,7 @@ const MindMapVisualization = () => {
       {/* Central node */}
       <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
         <Sphere position={[0, 0, 0]} args={[0.8, 32, 32]}>
-          <meshPhongMaterial color="#00D4FF" transparent opacity={0.8} />
+          <meshPhongMaterial color="#00D4FF" transparent={true} opacity={0.8} />
         </Sphere>
         <Text
           position={[0, 0, 0.9]}
@@ -40,7 +40,7 @@ const MindMapVisualization = () => {
       ].map((node, index) => (
         <Float key={index} speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
           <Sphere position={node.pos as [number, number, number]} args={[0.5, 16, 16]}>
-            <meshPhongMaterial color={node.color} transparent opacity={0.7} />
+            <meshPhongMaterial color={node.color} transparent={true} opacity={0.7} />
           </Sphere>
           <Text
             position={[node.pos[0], node.pos[1], node.pos[2] + 0.6]}
@@ -58,7 +58,7 @@ const MindMapVisualization = () => {
               [node.pos[0], node.pos[1], node.pos[2]]
             ]}
             color="#00D4FF"
-            transparent
+            transparent={true}
             opacity={0.5}
             lineWidth={2}
           />
@@ -77,7 +77,7 @@ export const Hero3D = () => {
         <pointLight position={[-10, -10, -5]} intensity={0.5} color="#FF6B9D" />
         
         <MindMapVisualization />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate={true} autoRotateSpeed={0.5} />
       </Canvas>
     </div>
   );
