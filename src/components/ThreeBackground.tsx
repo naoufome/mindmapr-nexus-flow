@@ -17,49 +17,44 @@ const AnimatedSphere = ({ position, color, scale = 1 }: { position: [number, num
   return (
     <Float speed={1.5} rotationIntensity={1} floatIntensity={2}>
       <Sphere ref={meshRef} args={[1, 64, 64]} scale={scale} position={position}>
-        <meshPhongMaterial
+        <meshBasicMaterial
           color={color}
           transparent={true}
           opacity={0.7}
-          emissive={color}
-          emissiveIntensity={0.1}
         />
       </Sphere>
     </Float>
   );
 };
 
-const Particles = () => {
-  const pointsRef = useRef<THREE.Points>(null);
+const SimpleParticles = () => {
+  const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.1;
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
+    if (groupRef.current) {
+      groupRef.current.rotation.x = state.clock.elapsedTime * 0.1;
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.05;
     }
   });
 
-  const particleCount = 100;
-  const positions = new Float32Array(particleCount * 3);
-
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+  const particles = [];
+  for (let i = 0; i < 50; i++) {
+    const x = (Math.random() - 0.5) * 20;
+    const y = (Math.random() - 0.5) * 20;
+    const z = (Math.random() - 0.5) * 20;
+    
+    particles.push(
+      <mesh key={i} position={[x, y, z]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
+        <meshBasicMaterial color="#00D4FF" transparent={true} opacity={0.6} />
+      </mesh>
+    );
   }
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={particleCount}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial size={0.1} color="#00D4FF" transparent={true} opacity={0.6} />
-    </points>
+    <group ref={groupRef}>
+      {particles}
+    </group>
   );
 };
 
@@ -75,7 +70,7 @@ export const ThreeBackground = () => {
         <AnimatedSphere position={[4, -2, -3]} color="#FF6B9D" scale={0.6} />
         <AnimatedSphere position={[0, 0, -8]} color="#8B5CF6" scale={1.2} />
         
-        <Particles />
+        <SimpleParticles />
       </Canvas>
     </div>
   );
